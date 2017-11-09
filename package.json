@@ -1,0 +1,29 @@
+{
+  "name": "landingpage-template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node ./node_modules/.bin/gulp dev",
+    "prod": "node ./node_modules/.bin/gulp prod"
+  },
+  "keywords": [],
+  "author": "Ralf Richtsteiger",
+  "license": "MIT",
+  "devDependencies": {
+    "browser-sync": "^2.18.13",
+    "del": "^3.0.0",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^4.0.0",
+    "gulp-clean-css": "^3.9.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-gzip": "^1.4.0",
+    "gulp-htmlmin": "^3.0.0",
+    "gulp-if": "^2.0.2",
+    "gulp-notify": "^3.0.0",
+    "gulp-plumber": "^1.1.0",
+    "gulp-sass": "^3.1.0",
+    "gulp-uglify": "^3.0.0",
+    "run-sequence": "^2.2.0"
+  }
+}

@@ -1,0 +1,20 @@
+$size-narrow: 560px !default;
+$size-wide: 850px !default;
+$size-ultra: 1200px !default;
+
+@mixin for-size($size) {
+  @if $size == small { // phone only
+    @media (max-width: $size-narrow - 1) { @content; }
+  } @else if $size == narrow { // tablet only
+    @media (min-width: $size-narrow) and (max-width: $size-wide - 1) { @content; }
+  } @else if $size == narrow-wide { // tablet and desktop
+    @media (min-width: $size-narrow) { @content; }
+  } @else if $size == wide { // desktop only
+    @media (min-width: $size-wide) { @content; }
+  } @else if $size == ultra { // ultra wide screen
+    @media (min-width: $size-ultra) { @content; }
+  } @else {
+    @warn "Not supported breakpoint #{range}";
+    @media only screen { @content; }
+  }
+}
