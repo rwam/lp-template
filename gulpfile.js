@@ -71,9 +71,7 @@ gulp.task('sass', () => {
         .pipe(sass({
             outputStyle: 'expanded'
         }))
-        .pipe(autoprefixer({
-            browsers: ['last 2 versions']
-        }))
+        .pipe(autoprefixer())
         .pipe(gulpIf(isProduction, cleanCSS()))
         .pipe(gulp.dest(options.dist))
         .pipe(gulpIf(isProduction, gzip()))
