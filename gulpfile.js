@@ -9,14 +9,13 @@ const gzip = require('gulp-gzip');
 const htmlmin = require('gulp-htmlmin');
 const notify = require('gulp-notify');
 const plumber = require('gulp-plumber');
-const runSequence = require('run-sequence');
 const sass = require('gulp-sass');
 const uglify = require('gulp-uglify');
 
 const options = {
     dist: './dist',
     src: {
-        assets: [],
+        assets: ['./src/assets/**'],
         html: './src/index.html',
         js: ['./src/scripts/main.js', './src/scripts/modules/**'],
         sass: ['./src/sass/main.scss']
@@ -38,11 +37,6 @@ function errorHandler() {
         }
     });
 }
-
-gulp.task('prod', ['clean'], () => {
-    isProduction = true;
-    runSequence(['assets', 'html', 'sass', 'scripts']);
-});
 
 gulp.task('clean', () => {
     return del(options.dist);
@@ -89,14 +83,29 @@ gulp.task('scripts', () => {
         .pipe(browserSync.stream());
 });
 
-gulp.task('dev', ['html', 'sass', 'scripts'], () => {
+gulp.task('browserSync', () => {
     browserSync.init({
         server: {
             baseDir: options.dist
         }
     });
+})
 
-    gulp.watch(options.src.html, ['html']);
-    gulp.watch(options.src.js, ['scripts']);
-    gulp.watch(options.watch.sass, ['sass']);
+gulp.task('watch', () => {
+    gulp.watch(options.src.html, gulp.series('html'));
+    gulp.watch(options.src.js, gulp.series('scripts'));
+    gulp.watch(options.watch.sass, gulp.series('sass'));
+})
+
+gulp.task('dev', gulp.series(
+    'assets',
+    gulp.parallel('html', 'sass', 'scripts'),
+    gulp.parallel('watch', 'browserSync')
+))
+
+gulp.task('prod', (done) => {
+    isProduction = true;
+    gulp.series('clean', 'assets', 'html', 'sass', 'scripts')(done)
 });
+
+gulp.task('default', gulp.series('prod'))
