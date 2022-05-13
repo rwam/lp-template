@@ -9,7 +9,7 @@ const gzip = require('gulp-gzip');
 const htmlmin = require('gulp-htmlmin');
 const notify = require('gulp-notify');
 const plumber = require('gulp-plumber');
-const sass = require('gulp-sass');
+const sass = require('gulp-sass')(require('sass'));
 const uglify = require('gulp-uglify');
 
 const options = {
