@@ -1,8 +1,8 @@
 // settings
-@import "vars";
-@import "mixins";
+@use "vars";
+@use "mixins";
 
 // global
-@import "normalize";
-@import "typography";
-@import "base";
+@use "normalize";
+@use "typography";
+@use "base";
