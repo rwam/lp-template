@@ -1,16 +1,21 @@
-const autoprefixer = require('gulp-autoprefixer');
-const browserSync = require('browser-sync').create();
-const cleanCSS = require('gulp-clean-css');
-const concat = require('gulp-concat');
-const del = require('del');
-const gulp = require('gulp');
-const gulpIf = require('gulp-if');
-const gzip = require('gulp-gzip');
-const htmlmin = require('gulp-htmlmin');
-const notify = require('gulp-notify');
-const plumber = require('gulp-plumber');
-const sass = require('gulp-sass')(require('sass'));
-const uglify = require('gulp-uglify');
+import autoprefixer from 'gulp-autoprefixer';
+import cleanCSS from 'gulp-clean-css';
+import concat from 'gulp-concat';
+import { deleteSync as del } from 'del';
+import gulp from 'gulp';
+import gulpIf from 'gulp-if';
+import gzip from 'gulp-gzip';
+import htmlmin from 'gulp-htmlmin';
+import notify from 'gulp-notify';
+import plumber from 'gulp-plumber';
+import uglify from 'gulp-uglify';
+
+import browserSyncLib from 'browser-sync';
+const browserSync = browserSyncLib.create();
+
+import * as dartSass from 'sass';
+import gulpSass from 'gulp-sass';
+const sass = gulpSass(dartSass);
 
 const options = {
     dist: './dist',
@@ -39,7 +44,10 @@ function errorHandler() {
 }
 
 gulp.task('clean', () => {
-    return del(options.dist);
+    return new Promise((resolve) => {
+        del(options.dist);
+        resolve();
+    });
 });
 
 gulp.task('assets', () => {
